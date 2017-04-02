@@ -1,14 +1,23 @@
 <!DOCTYPE HTML>
 <html>
 <body>
+lab2实验报告<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了完成一个会动的火柴人，首先需要绘制出这个火柴人。由于火柴人是由各个立方体组成，所以选择现在三维空间中构造出各个立方体组成这个火柴人。创建一个
+createcube函数，输入为起始点（每个立方体默认的是三维坐标下的同一个位置）的xyz坐标，立方体的长宽高，存储立方体的二维数组（8*3的数组，每一行存储的是一
+个立方体顶点的各个坐标），函数的作用是将这个全局数组利用输入初始化，构造出各个立方体之后，通过对各个立方体的起始点设置可以拼接得到这个火柴人。<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了让火柴人动起来，首先需要让火柴人完成移动，可以通过设置计时器，每次调用的时候将火柴人的各个立方体的坐标完成x轴上的递增，y轴上的递增来得到一个
+在xy平行平面上移动的火柴人。为了让火柴人的移动更加的逼真，选择让火柴人的膀臂和腿完成相应的摆动。这里以手臂为基础，整个膀臂围绕着肩膀转动的同时小臂
+围绕着大臂最低端转动，转动达到一定角度的时候将方向取反，如此反复以创造出膀臂和腿摆动的动作。创建moveaction函数，输入为需要转动的两个相连部位（如左边
+大臂和左边小臂）的立方体顶点数组指针，函数作用是将立方体的各个对应顶点做旋转，以一个立方体为例，需要将各个顶点的xy坐标做修改，12顶点是旋转轴不需要修改，其他
+顶点以这条边为轴进行修改，以计时器中的时间为输入，34顶点的x坐标为顶点1的x坐标+立方体的高*sin（t），56顶点的x坐标为顶点1的x坐标-立方体的宽*cos（t），
+78顶点的x坐标为顶点5的x坐标+立方体的高*sin（t）。将这个思路运用到整个手臂，同时注意修改大臂小臂交界处的顶点，完成整个手臂的转动，
+之后再次将这个思路运用到小臂，完成小臂围绕大臂的转动，如此就完成了四肢的模拟。<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后需要将这个奔跑的火柴人投影到二维屏幕上。创建draorect函数，输入为一个立方体顶点存储数组的指针，函数作用
+是将各个顶点投影到二维平面上，x坐标为原坐标的x坐标+z坐标*转换率，y坐标为原坐标的y坐标+z坐标*转换率，然后调用一个glBegin(GL_LINE_LOOP)绘制出四个平行
+四边形完成将立方体投影到二维平面。<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最终整个函数先创建出各个立方体，之后投影到平面上，然后调用glutIdleFunc(&motion)函数，在自定义motion函数中
+先完成火柴人的平移，之后再完成四肢的旋转，最后将计时变量加上一个direction变量，如果计时变量达到一个判断界限九江direction变量取反，完成摆动。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="lab2video.html" > lab2实验视频</a>
 
-<video width="320" height="240" controls>
-<source src="images/lab2.mp4" type="video/mp4">
-<source src="images/lab2.ogg" type="video/ogg">
-<source src="images/lab2.webm" type="video/webm">
-<object data="images/lab2.mp4" width="320" height="240">
-<embed src="images/lab2.swf" width="320" height="240">
-</object>
-</video>
 </body>
 </html>
